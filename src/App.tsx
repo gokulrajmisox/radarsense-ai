@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full bg-slate-50 text-slate-900 overflow-hidden font-sans selection:bg-blue-200">
-      {appState === 'intro' && <IntroScreen onComplete={() => setAppState('login')} />}
+      {appState === 'intro' && <IntroScreen />}
       {appState === 'login' && <LoginScreen onLoginSuccess={() => setAppState('dashboard')} />}
       {appState === 'dashboard' && <Dashboard />}
     </div>

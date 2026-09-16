@@ -30,7 +30,7 @@ export function useMockRadarData() {
     lastUpdate: new Date().toLocaleTimeString(),
   });
 
-  const [events, setEvents] = useState<RadarEvent[]>([
+  const [events] = useState<RadarEvent[]>([
     { id: '1', time: '10:12 AM', description: 'Movement detected', status: 'Approaching', distance: 62, level: 'WARNING' },
     { id: '2', time: '09:48 AM', description: 'Danger cleared', status: 'Stationary', distance: 120, level: 'SAFE' },
     { id: '3', time: '08:45 AM', description: 'Movement detected', status: 'Moving Away', distance: 78, level: 'WARNING' },

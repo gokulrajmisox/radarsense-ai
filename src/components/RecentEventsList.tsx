@@ -1,5 +1,5 @@
 import { Bell } from 'lucide-react';
-import { RadarEvent } from '../hooks/useMockRadarData';
+import type { RadarEvent } from '../hooks/useMockRadarData';
 
 export default function RecentEventsList({ events }: { events: RadarEvent[] }) {
   return (

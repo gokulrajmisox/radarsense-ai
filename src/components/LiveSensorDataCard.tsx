@@ -1,5 +1,5 @@
 import { Activity, Clock, Compass, Navigation, Radio, Shield } from 'lucide-react';
-import { SensorData } from '../hooks/useMockRadarData';
+import type { SensorData } from '../hooks/useMockRadarData';
 
 export default function LiveSensorDataCard({ data }: { data: SensorData }) {
   return (

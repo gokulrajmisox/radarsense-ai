@@ -1,5 +1,5 @@
-import { Shield, ShieldAlert, ShieldCheck } from 'lucide-react';
-import { SensorData } from '../hooks/useMockRadarData';
+import { ShieldAlert, ShieldCheck } from 'lucide-react';
+import type { SensorData } from '../hooks/useMockRadarData';
 
 export default function ThreatLevelCard({ data }: { data: SensorData }) {
   const isDanger = data.dangerLevel === 'DANGER';

@@ -19,21 +19,39 @@ export default function AIAssistantPanel() {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  const handleSend = (text: string) => {
+  const handleSend = async (text: string) => {
     if (!text.trim()) return;
     
     setMessages(prev => [...prev, { role: 'user', text }]);
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Create some mock context for the AI
+      const context = {
+        totalEventsToday: 12,
+        currentStatus: "SAFE",
+        lastEvent: "Movement detected at 08:45 AM, 78cm away",
+      };
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, context })
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setMessages(prev => [...prev, { role: 'ai', text: data.text }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'ai', text: "Sorry, I encountered an error communicating with Gemini." }]);
+      }
+    } catch (error) {
+      setMessages(prev => [...prev, { role: 'ai', text: "Network error occurred." }]);
+    } finally {
       setIsTyping(false);
-      setMessages(prev => [...prev, { 
-        role: 'ai', 
-        text: `Based on the radar data, I can confirm that this inquiry about "${text}" shows peak activity around 08:00 AM with multiple approaching objects. The area is currently clear.` 
-      }]);
-    }, 1500);
+    }
   };
 
   return (

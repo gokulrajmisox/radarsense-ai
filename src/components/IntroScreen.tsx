@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-export default function IntroScreen({ onComplete }: { onComplete: () => void }) {
+export default function IntroScreen() {
   const [showSubtitle, setShowSubtitle] = useState(false);
 
   useEffect(() => {
