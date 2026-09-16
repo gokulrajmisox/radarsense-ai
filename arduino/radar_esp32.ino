@@ -63,8 +63,8 @@ const unsigned long SUPABASE_INTERVAL = 1000;
 // THRESHOLDS
 // =====================================================
 
-#define WARNING_DISTANCE 100
-#define DANGER_DISTANCE 50
+#define WARNING_DISTANCE 30
+#define DANGER_DISTANCE 15
 
 // =====================================================
 // GET DISTANCE

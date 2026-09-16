@@ -100,12 +100,12 @@ export default function LiveRadar({ angle, distance }: { angle: number, distance
             animate={{ x: targetX, y: targetY }}
             transition={{ type: 'spring', damping: 20, stiffness: 100 }}
           >
-            <circle cx="0" cy="0" r="5" fill={distance < 50 ? '#ef4444' : distance < 100 ? '#f59e0b' : '#10b981'} />
+            <circle cx="0" cy="0" r="5" fill={distance <= 15 ? '#ef4444' : distance <= 30 ? '#f59e0b' : '#10b981'} />
             <circle 
               cx="0" 
               cy="0" 
               r="12" 
-              fill={distance < 50 ? '#ef4444' : distance < 100 ? '#f59e0b' : '#10b981'} 
+              fill={distance <= 15 ? '#ef4444' : distance <= 30 ? '#f59e0b' : '#10b981'} 
               opacity="0.4" 
               className="animate-ping" 
             />

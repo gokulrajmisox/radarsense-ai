@@ -82,8 +82,8 @@ export function useMockRadarData() {
       }
 
       let danger: ThreatLevel = 'SAFE';
-      if (newDistance < 50) danger = 'DANGER';
-      else if (newDistance < 100) danger = 'WARNING';
+      if (newDistance <= 15) danger = 'DANGER';
+      else if (newDistance <= 30) danger = 'WARNING';
 
       setData({
         angle: currentAngle,
