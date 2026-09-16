@@ -37,14 +37,19 @@ export function useMockRadarData() {
     { id: '4', time: '07:32 AM', description: 'Danger detected', status: 'Approaching', distance: 45, level: 'DANGER' },
   ]);
 
-  // Simulate radar sweeping 0 -> 180 -> 0
+  // Simulate radar sweeping 0 -> 180 -> 0 and a fixed object
   useEffect(() => {
     let currentAngle = 0;
     let direction = 1;
     let previousDistance = 150;
+    
+    // Simulate an object slowly moving
+    let objectAngle = 80;
+    let objectDistance = 90;
 
     const interval = setInterval(() => {
-      currentAngle += direction * 5;
+      // Sweep logic
+      currentAngle += direction * 3;
       if (currentAngle >= 180) {
         currentAngle = 180;
         direction = -1;
@@ -53,14 +58,26 @@ export function useMockRadarData() {
         direction = 1;
       }
 
-      // Generate a random distance to simulate objects (mostly nothing = 150, occasionally closer)
-      const isObject = Math.random() > 0.8;
-      let newDistance = isObject ? Math.floor(Math.random() * 120) + 20 : 150;
+      // Slightly move the object over time
+      objectAngle += (Math.random() - 0.5) * 2; 
+      objectDistance += (Math.random() - 0.5) * 1.5;
+      
+      // Clamp object position
+      if (objectAngle < 30) objectAngle = 30;
+      if (objectAngle > 150) objectAngle = 150;
+      if (objectDistance < 20) objectDistance = 20;
+      if (objectDistance > 140) objectDistance = 140;
+
+      // If beam hits object (within 10 degrees)
+      let newDistance = 150; // default background distance
+      if (Math.abs(currentAngle - objectAngle) < 10) {
+        newDistance = objectDistance;
+      }
       
       let movement: SensorData['movementStatus'] = 'Scanning';
       if (newDistance < 150 && previousDistance < 150) {
-        if (newDistance < previousDistance - 5) movement = 'Approaching';
-        else if (newDistance > previousDistance + 5) movement = 'Moving Away';
+        if (newDistance < previousDistance - 1) movement = 'Approaching';
+        else if (newDistance > previousDistance + 1) movement = 'Moving Away';
         else movement = 'Stationary';
       }
 
@@ -77,9 +94,11 @@ export function useMockRadarData() {
         lastUpdate: new Date().toLocaleTimeString(),
       });
 
-      previousDistance = newDistance;
+      if (newDistance < 150) {
+        previousDistance = newDistance;
+      }
 
-    }, 200); // Update every 200ms
+    }, 50); // Fast sweep to match ESP32 50ms delay
 
     return () => clearInterval(interval);
   }, []);

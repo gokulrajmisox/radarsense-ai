@@ -76,9 +76,9 @@ export default function LiveRadar({ angle, distance }: { angle: number, distance
             So we rotate by -angle from the 0 degree line (which is rightwards).
         */}
         <motion.g
-          style={{ transformOrigin: '200px 200px' }}
+          style={{ originX: 0, originY: 1 }}
           animate={{ rotate: -angle }}
-          transition={{ type: 'tween', duration: 0.2, ease: 'linear' }}
+          transition={{ type: 'tween', duration: 0.1, ease: 'linear' }}
         >
           {/* The beam itself - a sector */}
           <path
