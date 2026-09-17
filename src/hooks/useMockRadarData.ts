@@ -32,7 +32,7 @@ export function useMockRadarData() {
   });
 
   const [events, setEvents] = useState<RadarEvent[]>([]);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     // Function to handle device going offline
